@@ -37,6 +37,7 @@ public class Main{
         Scanner scanner = new Scanner(System.in); 
         String answer = scanner.nextLine(); 
         System.out.print(answer); 
+        answer = ""; 
         //Pick a starter
         System.out.print(border);
         System.out.println("Your grandpa wakes you up for breakfast, and he cooks your favorite.");
@@ -49,49 +50,50 @@ public class Main{
         System.out.print(border);
         //user input
         String starter = input.nextLine(); 
-        boolean loop = false; 
-        while (!loop){
+        boolean loop_starter = false; 
+        while (!loop_starter){
             if (starter.toLowerCase().equals("vulpix")){
                 System.out.println("Great Choice! Vulpix is excited to be your first pokemon, and can't wait to live on your farm.");
                 player.addStarter(vulpix);
                 farm.addPokemon(vulpix);
-                loop = true; 
+                loop_starter = true; 
             } else if (starter.toLowerCase().equals("psyduck")){
                 System.out.println("Great Choice! Psyduck looks less confused, and can't wait to live on your farm.");
                 player.addStarter(pysduck);
                 farm.addPokemon(pysduck);
-                loop = true; 
+                loop_starter = true; 
             } else if (starter.toLowerCase().equals("pikachu")){
                 System.out.println("Great Choice! Pikachu runs around in excitement, and can't wait to live on your farm.");
                 player.addStarter(pikachu);
                 farm.addPokemon(pikachu);
-                loop = true; 
+                loop_starter = true; 
             } else {
                 System.out.println("I don't know that pokemon. Try again. Your options are: vulpix, psyduck, or pikachu."); 
                 starter = input.nextLine(); 
             }
-            
+             
+            farm.setHere(true);
             //
             System.out.println(border); 
-            System.out.println("You have your starter. What would you like to do now? You can use the command 'look' to look around and figure out what you'd like to do.");
-            answer = scanner.nextLine(); 
-            loop = false;
-            while (!loop){ 
-                if (answer.toLowerCase().equals("look")){
-                    System.out.println(farm.look());
-                    loop = true; 
-                } else {
-                    System.out.println("I don't know that command. You can use the command 'see pokemon' to see your pokemon. You can look around using the command 'look'"); 
-                    answer = scanner.nextLine(); 
+            while (farm.here() == true) {
+                answer = scanner.nextLine(); 
+                boolean loop = true; // Start with loop = true
+                while (loop) { 
+                    if (answer.toLowerCase().equals("look")) {
+                        System.out.println(farm.look());
+                        loop = false; // Exit the inner loop after processing
+                    } else if (answer.toLowerCase().equals("see pokemon")) {
+                        farm.seePokemon();
+                        loop = false; // Exit the inner loop after processing
+                    } else if (answer.toLowerCase().equals("leave")) {
+                        farm.leave(); // Sets here to false
+                        loop = false; // Exit the inner loop
+                    } else {
+                        System.out.println("I don't know that command. You can use the command 'see pokemon' to see your pokemon. You can look around using the command 'look'."); 
+                        answer = scanner.nextLine(); 
+                    }
                 }
-
             }
-            System.out.print("Look around"); 
-            answer = scanner.nextLine(); 
-            if (answer.toLowerCase().equals("see pokemon")){
-                farm.seePokemon();
-            }
-
         }
 
         scanner.close();

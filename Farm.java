@@ -1,8 +1,11 @@
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Farm extends Location{
     public ArrayList<Pokemon> farmPokemon;
+    public boolean here = false; 
     
     public Farm(String name) {
         super(name, 0, 0); 
@@ -21,6 +24,20 @@ public class Farm extends Location{
         }
     }
 
+    public void setHere(boolean here){
+        this.here = here; 
+    }
+
+    public boolean here(){
+        return this.here(); 
+    }
+    public void leave(){
+        this.here = false; 
+    }
+
     //inventory of pokemon
     //ability to interact with pokemon
+
+
+ 
 }
