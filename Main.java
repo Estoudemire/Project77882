@@ -4,7 +4,7 @@ public class Main{
     public static void main(String[] args) {
         //Stuf 
         String border = "=====================================\n";
-
+        int num; 
 
         //Set up
         Pokemon pikachu = new Pokemon("Pikachu"); 
